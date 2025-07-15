@@ -186,7 +186,10 @@ namespace TextRpg_Comment
             for (int i = 0; i < itemDb.Length; i++)
             {
                 Item curItem = itemDb[i];
-                string displayPrice = (player.HasItem(curItem) ? "구매완료" : $"{curItem.Price} G");
+                string displayPrice =
+                    curItem.Type == ItemType.potion ?
+                    $"{curItem.Price} G"
+                    : (player.HasItem(curItem) ? "구매완료" : $"{curItem.Price} G");
                 Console.WriteLine($"- {curItem.ItemInfoText()}  |  {displayPrice}");
             }
             Console.WriteLine();
@@ -225,7 +228,10 @@ namespace TextRpg_Comment
             for (int i = 0; i < itemDb.Length; i++)
             {
                 Item curItem = itemDb[i];
-                string displayPrice = (player.HasItem(curItem) ? "구매완료" : $"{curItem.Price} G");
+                string displayPrice = 
+                    curItem.Type==ItemType.potion ?
+                    $"{curItem.Price} G"
+                    : (player.HasItem(curItem) ? "구매완료" : $"{curItem.Price} G");
                 Console.WriteLine($"- {i + 1} {curItem.ItemInfoText()}  |  {displayPrice}");
             }
             Console.WriteLine();
@@ -244,7 +250,7 @@ namespace TextRpg_Comment
                     int itemIdx = result - 1;
                     Item targetItem = itemDb[itemIdx];
 
-                    if (player.HasItem(targetItem))
+                    if (targetItem.Type != ItemType.potion && player.HasItem(targetItem))
                     {
                         Console.WriteLine("이미 구매한 아이템입니다.");
                         Console.WriteLine("Enter 를 눌러주세요.");
