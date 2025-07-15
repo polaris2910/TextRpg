@@ -600,7 +600,7 @@ namespace TextRpg_Comment
                         Item selectedPotion = potions[potiontake - 1];
 
                         // 회복 처리
-                        player.Hp += selectedPotion.Value;
+                        player.SetHp(player.Hp + selectedPotion.Value);
                         Console.WriteLine($"{selectedPotion.Name} 사용 체력 +{selectedPotion.Value}");
                         Console.WriteLine($"현재 체력: {player.Hp}");
 
