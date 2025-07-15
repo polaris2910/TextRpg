@@ -400,3 +400,15 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .vs/TextRpg/v17/.suo
+.vs/TextRpg/v17/.suo
+.vs/TextRpg/v17/.suo
+.vs/TextRpg/v17/DocumentLayout.backup.json
+.vs/TextRpg/v17/DocumentLayout.json
+obj/Debug/net8.0/TextRpg.AssemblyInfo.cs
+obj/Debug/net8.0/TextRpg.AssemblyInfoInputs.cache
+obj/Debug/net8.0/TextRpg.assets.cache
+obj/Debug/net8.0/TextRpg.GeneratedMSBuildEditorConfig.editorconfig
+obj/project.assets.json
+obj/project.nuget.cache
+obj/TextRpg.csproj.nuget.dgspec.json
+obj/TextRpg.csproj.nuget.g.props
