@@ -158,5 +158,19 @@ namespace TextRpg_Comment
             Def += 1;
             Console.WriteLine($"레벨업! Lv.{Level}이 되었습니다. 공격력 +1, 방어력 +1");
         }
+
+        public void SetHp(int value)
+        {
+            Hp = Utils.Clamp(value, 0, MaxHp);
+        }
+
+        public void HalveHp()
+        {
+            Hp = Utils.Clamp(Hp / 2, 1, MaxHp);
+        }
+        public void TakeDamage(int damage)
+        {
+            Hp = Utils.Clamp(Hp - damage, 0, MaxHp);
+        }
     }
 }

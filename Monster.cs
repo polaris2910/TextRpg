@@ -4,7 +4,7 @@
     {
         public string Name { get; }
         public int Level { get; }
-        public int Hp { get; set; }
+        public int Hp { get; private set; }
         public int Atk { get; }
 
         public Monster(string name, int level, int hp, int atk)
