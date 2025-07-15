@@ -20,6 +20,10 @@ namespace TextRpg_Comment
 
         private List<Item> Inventory = new List<Item>();
         private List<Item> EquipList = new List<Item>();
+        public List<Item> GetInventory()
+        {
+            return Inventory;
+        }
 
         public int InventoryCount => Inventory.Count;
 
@@ -36,7 +40,10 @@ namespace TextRpg_Comment
             MaxHp = hp;
             Gold = gold;
         }
-
+        public List<Item> TakeInventory()
+{
+    return Inventory;
+}
         public void DisplayCharacterInfo()
         {
             Console.WriteLine($"Lv. {Level:D2}");

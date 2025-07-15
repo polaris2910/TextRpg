@@ -581,7 +581,35 @@ namespace TextRpg_Comment
                     case "2":
                     Console.Clear();
                     Console.WriteLine("보유중인 포션");
-                    List<Item> potions = player.Inventory.Where(i => i.Type == ItemType.potion).ToList();
+                    List<Item> potions = player.TakeInventory().Where(i => i.Type == ItemType.potion).ToList();
+                        if (potions.Count == 0)
+                        {
+                            Console.WriteLine(" 사용 가능한 포션이 없습니다.");
+                            Console.WriteLine("Enter를 눌러 돌아갑니다...");
+                            Console.ReadLine();
+                            continue; 
+                        }
+
+                        for (int i = 0; i < potions.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {potions[i].ItemInfoText()}");
+                        }
+
+                        Console.WriteLine("\n사용할 포션을 선택하세요:");
+                        int potiontake = CheckInput(1, potions.Count);
+                        Item selectedPotion = potions[potiontake - 1];
+
+                        // 회복 처리
+                        player.Hp += selectedPotion.Value;
+                        Console.WriteLine($"{selectedPotion.Name} 사용 체력 +{selectedPotion.Value}");
+                        Console.WriteLine($"현재 체력: {player.Hp}");
+
+                        // 포션 제거 (사용되었다면)
+                        player.RemoveItem(selectedPotion);
+
+                        Console.WriteLine("\nEnter를 눌러 전투로 돌아갑니다...");
+                        Console.ReadLine();
+                        break;
 
                     default:
                     Console.WriteLine("\n잘못된 입력입니다");
