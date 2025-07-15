@@ -28,7 +28,8 @@ namespace TextRpgPlayerAtk
              
             }
 
-
+            Console.WriteLine("\nEnter를 눌러 적 턴으로...");
+            Console.ReadLine(); // 
             EnemyAttackPhase.EnemyAtkPhase();
         }
         
