@@ -33,7 +33,11 @@ namespace TextRpg_Comment
                 new Item("스파르타의 갑옷", ItemType.Armor, 15,"스파르타의 전사들이 사용했다는 전설의 갑옷입니다. ",3500),
                 new Item("낡은 검", ItemType.Weapon, 2,"쉽게 볼 수 있는 낡은 검 입니다. ",600),
                 new Item("청동 도끼", ItemType.Weapon, 5,"어디선가 사용됐던거 같은 도끼입니다. ",1500),
-                new Item("스파르타의 창", ItemType.Weapon, 70,"스파르타의 전사들이 사용했다는 전설의 창입니다. ",2500)
+                new Item("스파르타의 창", ItemType.Weapon, 70,"스파르타의 전사들이 사용했다는 전설의 창입니다. ",2500),
+                new Item("작은 포션", ItemType.potion, 30,"목을 축일 정도로 담긴 포션 입니다. ",600),
+                new Item("중간 포션", ItemType.potion, 70,"시원하게 들이킬 수 있는 정도의 포션입니다. ",1200),
+                new Item("큰 포션", ItemType.potion, 100,"모든것이 좋아질듯한 양의 포션입니다.",2000),
+
             };
 
             dungeonDb = new Dungeon[]
@@ -154,9 +158,21 @@ namespace TextRpg_Comment
                     int itemIdx = result - 1;
                     Item targetItem = player.GetInventoryItem(itemIdx);
                     if (targetItem != null)
-                        player.EquipItem(targetItem);
+                    {
+                        if(targetItem.IsEquippable)
+                        {
+                            player.EquipItem(targetItem);
+                        }
+                        else
+                        {
+                            Console.WriteLine("포션 아이템은 장착할 수 없습니다.");
+                            Console.ReadLine();
+                        }
+                    }
+                    
                     DisplayEquipUI();
                     break;
+                    
             }
         }
 
@@ -526,11 +542,13 @@ namespace TextRpg_Comment
                 }
 
                 Console.WriteLine("\n1. 공격");
+                Console.WriteLine("\n2. 포션사용");
                 Console.Write(">> ");
                 string input = Console.ReadLine();
 
-                if (input == "1")
+                switch(input)
                 {
+                    case "1":
                     Console.Clear();
                     Console.WriteLine("\n[공격할 몬스터를 선택하세요]");
 
@@ -559,13 +577,22 @@ namespace TextRpg_Comment
                     {
                         continue;
                     }
-                }
-                else
-                {
+                    break;
+                    case "2":
+                    Console.Clear();
+                    Console.WriteLine("보유중인 포션");
+                    List<Item> potions = player.Inventory.Where(i => i.Type == ItemType.potion).ToList();
+
+                    default:
                     Console.WriteLine("\n잘못된 입력입니다");
                     Console.WriteLine("Enter를 눌러 계속...");
                     Console.ReadLine();
+                    break;
+                        
+
+
                 }
+                
             }
         }
 
