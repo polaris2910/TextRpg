@@ -1,12 +1,11 @@
-﻿using System;
-
-namespace TextRpg_Comment
+﻿namespace TextRpg_Comment
 {
     class Program
     {
         private static Character player;
         private static Item[] itemDb;
         private static Dungeon[] dungeonDb;
+        private static List<Monster> monsterTypes;
 
         static void Main(string[] args)
         {
@@ -17,6 +16,7 @@ namespace TextRpg_Comment
         static void SetData()
         {
             player = new Character(1, "Chad", "전사", 10, 5, 100, 1000);
+
             itemDb = new Item[]
             {
                 new Item("수련자의 갑옷", ItemType.Armor, 5,"수련에 도움을 주는 갑옷입니다. ",1000),
@@ -26,11 +26,19 @@ namespace TextRpg_Comment
                 new Item("청동 도끼", ItemType.Weapon, 5,"어디선가 사용됐던거 같은 도끼입니다. ",1500),
                 new Item("스파르타의 창", ItemType.Weapon, 7,"스파르타의 전사들이 사용했다는 전설의 창입니다. ",2500)
             };
+
             dungeonDb = new Dungeon[]
             {
                 new Dungeon("쉬운 던전", 5, 1000),
                 new Dungeon("일반 던전", 11, 1700),
                 new Dungeon("어려운 던전", 17, 2500)
+            };
+
+            monsterTypes = new List<Monster>()
+            {
+                new Monster ("미니언", 2, 15, 5),
+                new Monster ("공허충", 3, 10, 9),
+                new Monster ("대포미니언", 5, 25, 8)
             };
         }
 
@@ -484,6 +492,39 @@ namespace TextRpg_Comment
                 }
                 Console.WriteLine("잘못된 입력입니다!!!!");
             }
+        }
+
+        static void StartBattle()
+        {
+            Random rand = new Random();
+            int monsterCount = rand.Next(1, 5); // 1~4마리
+            List<Monster> battleMonsters = new List<Monster>();
+
+            for (int i = 0; i < monsterCount; i++)
+            {
+                int randIndex = rand.Next(monsterTypes.Count);
+                Monster baseMonster = monsterTypes[randIndex];
+                // 복사본 생성
+                Monster newMonster = new Monster(baseMonster.Name, baseMonster.Level, baseMonster.Hp, baseMonster.Atk);
+                battleMonsters.Add(newMonster);
+            }
+
+            // 랜덤 순서 섞기
+            battleMonsters = battleMonsters.OrderBy(x => rand.Next()).ToList();
+
+            Console.Clear();
+            Console.WriteLine("Battle!!\n");
+            foreach (var monster in battleMonsters)
+            {
+                Console.WriteLine(monster.Info());
+            }
+
+            Console.WriteLine("\n[내정보]");
+            player.DisplayCharacterInfo();
+            Console.WriteLine();
+            Console.WriteLine("1. 공격");
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            // 이후 공격 선택 및 전투 턴 구현
         }
     }
 }
