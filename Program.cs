@@ -1,4 +1,6 @@
-﻿namespace TextRpg_Comment
+﻿using TextRpgPlayerAtk;
+
+namespace TextRpg_Comment
 {
     class Program
     {
@@ -473,12 +475,27 @@
             Console.WriteLine("\n[내 정보]");
             player.DisplayCharacterInfo();
 
-            Console.WriteLine("\n1. 공격 (전투 로직 생략 중)");
+            Console.WriteLine("\n1. 공격");
             Console.Write(">> ");
-            Console.ReadLine(); // 나중에 전투 구현 시 삭제
-
-            Console.WriteLine("\n전투에 승리했습니다! Enter를 누르세요...");
-            Console.ReadLine();
+            string input = Console.ReadLine();
+            if (input == "1")
+            {
+                Console.Clear();
+                Console.WriteLine("\n[공격할 몬스터를 선택하세요]");
+                for (int i = 0; i < monstersInBattle.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {monstersInBattle[i].Info()}");
+                }
+                
+                int selected = CheckInput(1, monstersInBattle.Count);
+                Monster target = monstersInBattle[selected - 1];
+                PlayerAtk PlayerAtk = new PlayerAtk();
+                PlayerAtk.Attack(player, target, monstersInBattle);
+            }
+            else
+            {
+                Console.WriteLine("\n잘못된 입력입니다");
+            }
         }
 
         static List<Monster> CreateFloorMonsters(int floor)

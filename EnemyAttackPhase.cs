@@ -41,11 +41,11 @@ namespace TextRpg
             Console.WriteLine("몬스터의 턴입니다.\n");
 
 
-            foreach ()
+            //foreach ()
             {
-                if (몬스터.IsDead) continue;
+                //if (몬스터.IsDead) continue;
 
-                int totaldef = palyer.def
+                //int totaldef = palyer.def
 
 
                 
