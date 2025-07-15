@@ -20,4 +20,5 @@
             return $"Lv.{Level} {Name}  HP {Hp}";
         }
     }
+
 }

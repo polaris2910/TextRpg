@@ -7,6 +7,9 @@
         private static Dungeon[] dungeonDb;
         private static List<Monster> monsterTypes;
 
+        static int currentFloor = 1;
+        static int checkpointFloor = 1; // 5의 배수 저장
+
         static void Main(string[] args)
         {
             SetData();
@@ -69,7 +72,7 @@
                     DisplayShopUI();
                     break;
                 case 4:
-                    DisplayDungeonUI();
+                    DungeonMenuUI(); // 🔸 정의 안 돼 있음 !
                     break;
             }
         }
@@ -338,104 +341,67 @@
             }
         }
 
-        static void DisplayDungeonUI()
+        static void DungeonMenuUI()
         {
             Console.Clear();
-            Console.WriteLine("던전입장");
-            Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
-            Console.WriteLine();
-            Console.WriteLine("1. 쉬운 던전     | 방어력 5 이상 권장");
-            Console.WriteLine("2. 일반 던전     | 방어력 11 이상 권장");
-            Console.WriteLine("3. 어려운 던전    | 방어력 17 이상 권장");
-            Console.WriteLine("0. 나가기");
-            Console.WriteLine();
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.WriteLine("던전 입장 방식을 선택하세요:");
+            Console.WriteLine("1. 1층부터 시작");
+            if (checkpointFloor >= 5)
+                Console.WriteLine($"2. 체크포인트({checkpointFloor}층)부터 시작");
+            Console.Write(">> ");
+            int maxOption = checkpointFloor >= 5 ? 2 : 1;
+            int input = CheckInput(1, maxOption);
+            currentFloor = (input == 1) ? 1 : checkpointFloor;
 
-            int result = CheckInput(0, 3);
-
-            switch (result)
-            {
-                case 0:
-                    DisplayMainUI();
-                    break;
-                case 1:
-                    DungeonChallenge(dungeonDb[0]);
-                    break;
-                case 2:
-                    DungeonChallenge(dungeonDb[1]);
-                    break;
-                case 3:
-                    DungeonChallenge(dungeonDb[2]);
-                    break;
-            }
+            EnterDungeonUI();
         }
 
-        static void DungeonChallenge(Dungeon dungeon)
+        static void EnterDungeonUI()
         {
-            Console.Clear();
-            int myDef = player.Def + player.ExtraDef;
-            int myAtk = player.Atk + player.ExtraAtk;
-            int beforeHp = player.Hp;
-            int beforeGold = player.Gold;
-            Random rand = new Random();
-
-            Console.WriteLine($"[{dungeon.Name}]에 도전합니다!");
-            Console.WriteLine($"내 방어력: {myDef}, 권장 방어력: {dungeon.RecommendDef}");
-
-            bool isSuccess = true;
-            int hpLoss = 0;
-
-            // 권장 방어력 미달
-            if (myDef < dungeon.RecommendDef)
+            while (true)
             {
-                if (rand.Next(0, 100) < 40)
-                {
-                    isSuccess = false;
-                    Console.WriteLine("던전 도전 실패! 체력이 절반으로 감소합니다.");
-                    player.Hp /= 2;
-                }
-            }
+                Console.Clear();
+                Console.WriteLine($"[{currentFloor}층] 던전을 시작합니다!");
 
-            if (isSuccess)
-            {
-                // 방어력 차이에 따라 체력 소모 계산
-                int defDiff = dungeon.RecommendDef - myDef; // +면 소모 증가, -면 소모 감소
-                int minLoss = 20 + defDiff;
-                int maxLoss = 35 + defDiff;
-                if (minLoss < 0) minLoss = 0;
-                if (maxLoss < minLoss) maxLoss = minLoss + 1;
-                hpLoss = rand.Next(minLoss, maxLoss + 1);
+                List<Monster> monsters = CreateFloorMonsters(currentFloor);
 
-                if (player.Hp <= hpLoss)
+                Console.WriteLine("등장 몬스터:");
+                foreach (var m in monsters)
+                    Console.WriteLine(m.Info());
+                Console.WriteLine();
+
+                player.DisplayCharacterInfo();
+                Console.WriteLine();
+
+                Console.WriteLine("1. 전투 시작   2. 던전 중단");
+                Console.Write(">> ");
+                int act = CheckInput(1, 2);
+
+                if (act == 2)
                 {
-                    Console.WriteLine($"던전은 클리어했지만 체력이 부족해 쓰러졌습니다! (필요 체력: {hpLoss})");
-                    player.Hp = 1;
-                }
-                else
-                {
-                    player.Hp -= hpLoss;
-                    Console.WriteLine($"던전 클리어! 체력이 {hpLoss}만큼 감소했습니다.");
+                    Console.WriteLine("던전 탐험을 중단하고 마을로 돌아갑니다.");
+                    break;
                 }
 
-                // 보상 계산
-                int baseReward = dungeon.BaseReward;
-                int minPercent = myAtk;
-                int maxPercent = myAtk * 2;
-                int bonusPercent = rand.Next(minPercent, maxPercent + 1);
-                int bonusGold = baseReward * bonusPercent / 100;
-                int totalGold = baseReward + bonusGold;
+                // 전투 시작!
+                StartBattle(monsters);
 
-                player.AddGold(totalGold);
-                Console.WriteLine($"보상: {baseReward} G (+추가 {bonusGold} G, 총 {totalGold} G)");
+                // 전투 승리한 것으로 간주하고 다음 층 이동
+                currentFloor++;
 
-                // 레벨업 체크
-                player.AddDungeonClear();
-
-                DisplayDungeonResult(dungeon.Name, beforeHp, player.Hp, beforeGold, player.Gold);
-            }
-            else
-            {
-                DisplayDungeonResultFail(dungeon.Name, beforeHp, player.Hp, beforeGold, player.Gold);
+                if ((currentFloor - 1) % 5 == 0)
+                {
+                    checkpointFloor = currentFloor - 1;
+                    Console.WriteLine($"\n축하합니다! {checkpointFloor}층 체크포인트에 도달했습니다!");
+                    Console.WriteLine("1. 마을로 귀환   2. 계속 탐험");
+                    Console.Write(">> ");
+                    int sel = CheckInput(1, 2);
+                    if (sel == 1)
+                    {
+                        Console.WriteLine("마을로 돌아갑니다!");
+                        break;
+                    }
+                }
             }
         }
 
@@ -494,37 +460,45 @@
             }
         }
 
-        static void StartBattle()
+        static void StartBattle(List<Monster> monstersInBattle)
         {
-            Random rand = new Random();
-            int monsterCount = rand.Next(1, 5); // 1~4마리
-            List<Monster> battleMonsters = new List<Monster>();
-
-            for (int i = 0; i < monsterCount; i++)
-            {
-                int randIndex = rand.Next(monsterTypes.Count);
-                Monster baseMonster = monsterTypes[randIndex];
-                // 복사본 생성
-                Monster newMonster = new Monster(baseMonster.Name, baseMonster.Level, baseMonster.Hp, baseMonster.Atk);
-                battleMonsters.Add(newMonster);
-            }
-
-            // 랜덤 순서 섞기
-            battleMonsters = battleMonsters.OrderBy(x => rand.Next()).ToList();
-
             Console.Clear();
             Console.WriteLine("Battle!!\n");
-            foreach (var monster in battleMonsters)
+
+            foreach (var monster in monstersInBattle)
             {
                 Console.WriteLine(monster.Info());
             }
 
-            Console.WriteLine("\n[내정보]");
+            Console.WriteLine("\n[내 정보]");
             player.DisplayCharacterInfo();
-            Console.WriteLine();
-            Console.WriteLine("1. 공격");
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            // 이후 공격 선택 및 전투 턴 구현
+
+            Console.WriteLine("\n1. 공격 (전투 로직 생략 중)");
+            Console.Write(">> ");
+            Console.ReadLine(); // 나중에 전투 구현 시 삭제
+
+            Console.WriteLine("\n전투에 승리했습니다! Enter를 누르세요...");
+            Console.ReadLine();
+        }
+
+        static List<Monster> CreateFloorMonsters(int floor)
+        {
+            Random rand = new Random();
+            int count = rand.Next(1, 5); // 1~4 마리
+
+            List<Monster> monsters = new List<Monster>();
+            for (int i = 0; i < count; i++)
+            {
+                int index = rand.Next(monsterTypes.Count);
+                Monster baseM = monsterTypes[index];
+
+                // 층수 기반 보정
+                int scaledHp = baseM.Hp + (floor - 1) * 3;
+                int scaledAtk = baseM.Atk + (floor - 1) / 2;
+
+                monsters.Add(new Monster(baseM.Name, baseM.Level, scaledHp, scaledAtk));
+            }
+            return monsters;
         }
     }
 }
