@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\TextRpg-main\\TextRpg.csproj": {}
+    "D:\\unitywork\\TextRpg\\TextRpg.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\TextRpg-main\\TextRpg.csproj": {
+    "D:\\unitywork\\TextRpg\\TextRpg.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\TextRpg-main\\TextRpg.csproj",
+        "projectUniqueName": "D:\\unitywork\\TextRpg\\TextRpg.csproj",
         "projectName": "TextRpg",
-        "projectPath": "C:\\Users\\user\\Desktop\\TextRpg-main\\TextRpg.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\TextRpg-main\\obj\\",
+        "projectPath": "D:\\unitywork\\TextRpg\\TextRpg.csproj",
+        "packagesPath": "C:\\Users\\heegi\\.nuget\\packages\\",
+        "outputPath": "D:\\unitywork\\TextRpg\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\heegi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TextRpgPlayerAtk;
+using System.Numerics;
 using TextRpg;
+using TextRpgPlayerAtk;
 
 namespace TextRpg_Comment
 {
@@ -16,11 +17,6 @@ namespace TextRpg_Comment
         static int currentFloor = 1;
         static int checkpointFloor = 1;
 
-        static void Main(string[] args)
-        {
-            SetData();
-            DisplayMainUI();
-        }
 
         static void SetData()
         {
@@ -490,7 +486,7 @@ namespace TextRpg_Comment
         }
 
 
-        
+
         static bool StartBattle(List<Monster> monstersInBattle)
         {
             while (true)
@@ -603,6 +599,57 @@ namespace TextRpg_Comment
                 }
                 Console.WriteLine("잘못된 입력입니다!!!!");
             }
+        }
+
+        static void Main(string[] args)
+        {
+
+            Console.WriteLine("평화로운 마을 감자촌");
+            Console.WriteLine("여긴 용사도, 마왕도, 전쟁도 없다. 문제는 돈이없다...");
+            Console.WriteLine("식비, 공과금, 월세, 품위유지비, 용돈 인생의 난관에 맞서기 위해");
+            Console.WriteLine("전설의 해결책 배달 알바를 시작한다.");
+            Console.WriteLine();
+            Console.WriteLine("하지만 이 세계의 배달은 조금 특별하다.");
+            Console.WriteLine("산넘고 물건너 몬스터들과 마주하며 배달을 해야만 한다.");
+            Console.WriteLine("고로 나는 강해져야 한다!");
+            Console.WriteLine();
+
+            Console.Write("나의 이름을 입력해주세요 : ");
+            String name = Console.ReadLine();
+            Console.WriteLine();
+
+            Console.WriteLine($"안녕하세요! {name}님");
+            Console.WriteLine("당신에게 배달알바 가이드를 해줄 안내인 포테이토라고 합니다.");
+            Console.WriteLine("이제 알바를 시작하겠습니다.");
+            Console.WriteLine();
+
+            string jobname = "";
+            while (true) // Loop until a valid job is chosen
+            {
+                Console.WriteLine("당신의 직업을 고르세요.");
+                Console.WriteLine("1: 전사 / 2: 마법사 / 3: 궁수 / 4: 도적 / 5: 백수");
+                Console.Write("직업을 선택하세요: ");
+                string jobChoice = Console.ReadLine(); // Renamed from 'job' to avoid conflict with Player.job
+
+                switch (jobChoice)
+                {
+                    case "1": jobname = "전사"; break;
+                    case "2": jobname = "마법사"; break;
+                    case "3": jobname = "궁수"; break;
+                    case "4": jobname = "도적"; break;
+                    case "5": jobname = "백수"; break;
+                    default:
+                        Console.WriteLine("올바른 값을 입력해주세요.");
+                        continue; // Ask for input again
+                }
+                Console.WriteLine($"{jobname}를 선택하셨습니다.");
+                break; // Exit loop if valid job chosen
+            }
+
+            SetData();
+            DisplayMainUI();
+
+
         }
     }
 }
