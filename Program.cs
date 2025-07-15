@@ -17,11 +17,11 @@ namespace TextRpg_Comment
         static int currentFloor = 1;
         static int checkpointFloor = 1;
 
-      
 
-        static void SetData()
+
+        static void SetData(string name, string job)
         {
-            player = new Character(1, "Chad", "전사", 10, 5, 100, 10000);
+            player = new Character(name, job);
 
             itemDb = new Item[]
             {
@@ -55,9 +55,7 @@ namespace TextRpg_Comment
         static void DisplayMainUI()
         {
             Console.Clear();
-            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
-            Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
-            Console.WriteLine();
+           
             Console.WriteLine("1. 상태 보기");
             Console.WriteLine("2. 인벤토리");
             Console.WriteLine("3. 상점");
@@ -156,7 +154,7 @@ namespace TextRpg_Comment
                     Item targetItem = player.GetInventoryItem(itemIdx);
                     if (targetItem != null)
                     {
-                        if(targetItem.IsEquippable)
+                        if (targetItem.IsEquippable)
                         {
                             player.EquipItem(targetItem);
                         }
@@ -166,10 +164,10 @@ namespace TextRpg_Comment
                             Console.ReadLine();
                         }
                     }
-                    
+
                     DisplayEquipUI();
                     break;
-                    
+
             }
         }
 
@@ -228,8 +226,8 @@ namespace TextRpg_Comment
             for (int i = 0; i < itemDb.Length; i++)
             {
                 Item curItem = itemDb[i];
-                string displayPrice = 
-                    curItem.Type==ItemType.potion ?
+                string displayPrice =
+                    curItem.Type == ItemType.potion ?
                     $"{curItem.Price} G"
                     : (player.HasItem(curItem) ? "구매완료" : $"{curItem.Price} G");
                 Console.WriteLine($"- {i + 1} {curItem.ItemInfoText()}  |  {displayPrice}");
@@ -509,7 +507,7 @@ namespace TextRpg_Comment
         }
 
 
-        
+
         static bool StartBattle(List<Monster> monstersInBattle)
         {
             while (true)
@@ -549,48 +547,48 @@ namespace TextRpg_Comment
                 Console.Write(">> ");
                 string input = Console.ReadLine();
 
-                switch(input)
+                switch (input)
                 {
                     case "1":
-                    Console.Clear();
-                    Console.WriteLine("\n[공격할 몬스터를 선택하세요]");
+                        Console.Clear();
+                        Console.WriteLine("\n[공격할 몬스터를 선택하세요]");
 
-                    livingMonsters = monstersInBattle.Where(m => m.Hp > 0).ToList();
-                    for (int i = 0; i < livingMonsters.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}. {livingMonsters[i].Info()}");
-                    }
+                        livingMonsters = monstersInBattle.Where(m => m.Hp > 0).ToList();
+                        for (int i = 0; i < livingMonsters.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {livingMonsters[i].Info()}");
+                        }
 
-                    int selected = CheckInput(1, livingMonsters.Count);
-                    Monster target = livingMonsters[selected - 1];
+                        int selected = CheckInput(1, livingMonsters.Count);
+                        Monster target = livingMonsters[selected - 1];
 
-                    PlayerAtk playerAttackHandler = new PlayerAtk();
-                    playerAttackHandler.Attack(player, target);
+                        PlayerAtk playerAttackHandler = new PlayerAtk();
+                        playerAttackHandler.Attack(player, target);
 
-                    if (monstersInBattle.All(m => m.Hp <= 0))
-                    {
-                        continue;
-                    }
+                        if (monstersInBattle.All(m => m.Hp <= 0))
+                        {
+                            continue;
+                        }
 
-                    if (player.Hp > 0)
-                    {
-                        EnemyAttackPhase.EnemyAtkPhase(player, monstersInBattle);
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                    break;
+                        if (player.Hp > 0)
+                        {
+                            EnemyAttackPhase.EnemyAtkPhase(player, monstersInBattle);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                        break;
                     case "2":
-                    Console.Clear();
-                    Console.WriteLine("보유중인 포션");
-                    List<Item> potions = player.TakeInventory().Where(i => i.Type == ItemType.potion).ToList();
+                        Console.Clear();
+                        Console.WriteLine("보유중인 포션");
+                        List<Item> potions = player.TakeInventory().Where(i => i.Type == ItemType.potion).ToList();
                         if (potions.Count == 0)
                         {
                             Console.WriteLine(" 사용 가능한 포션이 없습니다.");
                             Console.WriteLine("Enter를 눌러 돌아갑니다...");
                             Console.ReadLine();
-                            continue; 
+                            continue;
                         }
 
                         for (int i = 0; i < potions.Count; i++)
@@ -615,15 +613,15 @@ namespace TextRpg_Comment
                         break;
 
                     default:
-                    Console.WriteLine("\n잘못된 입력입니다");
-                    Console.WriteLine("Enter를 눌러 계속...");
-                    Console.ReadLine();
-                    break;
-                        
+                        Console.WriteLine("\n잘못된 입력입니다");
+                        Console.WriteLine("Enter를 눌러 계속...");
+                        Console.ReadLine();
+                        break;
+
 
 
                 }
-                
+
             }
         }
 
@@ -664,6 +662,7 @@ namespace TextRpg_Comment
         }
         static void Main(string[] args)
         {
+            Console.Clear();
             Console.WriteLine("평화로운 마을 감자촌");
             Console.WriteLine("여긴 용사도, 마왕도, 전쟁도 없다. 문제는 돈이없다...");
             Console.WriteLine("식비, 공과금, 월세, 품위유지비, 용돈 인생의 난관에 맞서기 위해");
@@ -684,12 +683,12 @@ namespace TextRpg_Comment
             Console.WriteLine();
 
             string jobname = "";
-            while (true) // Loop until a valid job is chosen
+            while (true)
             {
                 Console.WriteLine("당신의 직업을 고르세요.");
                 Console.WriteLine("1: 전사 / 2: 마법사 / 3: 궁수 / 4: 도적 / 5: 백수");
                 Console.Write("직업을 선택하세요: ");
-                string jobChoice = Console.ReadLine(); // Renamed from 'job' to avoid conflict with Player.job
+                string jobChoice = Console.ReadLine();
 
                 switch (jobChoice)
                 {
@@ -700,19 +699,20 @@ namespace TextRpg_Comment
                     case "5": jobname = "백수"; break;
                     default:
                         Console.WriteLine("올바른 값을 입력해주세요.");
-                        continue; // Ask for input again
+                        continue;
                 }
                 Console.WriteLine($"{jobname}를 선택하셨습니다.");
-                break; // Exit loop if valid job chosen
+                break;
             }
-
-            Character player = new Character(name, jobname);
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            SetData();
+            SetData(name, jobname); 
             DisplayMainUI();
+
+
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+                DisplayMainUI();
+            }
         }
     }
-}

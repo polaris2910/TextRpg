@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace TextRpg_Comment
 {
+  
     public class Character
     {
         public int Level { get; private set; }
@@ -31,23 +32,52 @@ namespace TextRpg_Comment
 
         private int dungeonClearCount = 0;
 
-        public Character(int level, string name, string job, int atk, int def, int hp, int gold)
+        public Character(string name, string job) 
         {
-            Level = level;
+            Level = 1; 
             Name = name;
             Job = job;
-            Atk = atk;
-            Def = def;
-            Hp = hp;
-            MaxHp = hp;
-            Gold = gold;
+            ExtraAtk = 0;
+            ExtraDef = 0;
+
+           
+            switch (job)
+            {
+                case "전사":
+                    Atk = 13;
+                    Def = 7;
+                    MaxHp = 100;
+                    Gold = 10000;
+                    break;
+                case "마법사":
+                    Atk = 17;
+                    Def = 3;
+                    MaxHp = 80;
+                    Gold = 10000;
+                    break;
+                case "궁수":
+                    Atk = 16;
+                    Def = 4;
+                    MaxHp = 80;
+                    Gold = 10000;
+                    break;
+                case "도적":
+                    Atk = 14;
+                    Def = 6;
+                    MaxHp = 90;
+                    Gold = 10000;
+                    break;
+                case "백수":
+                    Atk = 10;
+                    Def = 10;
+                    MaxHp = 150;
+                    Gold = 3000;
+                    break;
+                
+            }
+            Hp = MaxHp; 
         }
 
-        public Character(string? name, string jobname)
-        {
-            Name = name;
-            Jobname = jobname;
-        }
 
         public List<Item> TakeInventory()
 {
@@ -56,7 +86,8 @@ namespace TextRpg_Comment
         public void DisplayCharacterInfo()
         {
             Console.WriteLine($"Lv. {Level:D2}");
-            Console.WriteLine($"{Name} {{ {Job} }}");
+            Console.WriteLine($"이름 : {Name}");
+            Console.WriteLine($"직업 : {Job}");
             Console.WriteLine(ExtraAtk == 0 ? $"공격력 : {Atk}" : $"공격력 : {Atk + ExtraAtk} (+{ExtraAtk})");
             Console.WriteLine(ExtraDef == 0 ? $"방어력 : {Def}" : $"방어력 : {Def + ExtraDef} (+{ExtraDef})");
             Console.WriteLine($"체력 : {Hp} / {MaxHp}");

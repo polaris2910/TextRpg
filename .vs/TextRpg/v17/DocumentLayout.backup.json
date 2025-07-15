@@ -11,20 +11,12 @@
       "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\itemtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,6 +25,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\enemyattackphase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:enemyattackphase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +46,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "EnemyAttackPhase.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\EnemyAttackPhase.cs",
               "RelativeDocumentMoniker": "EnemyAttackPhase.cs",
@@ -59,7 +59,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "ItemType.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\ItemType.cs",
               "RelativeDocumentMoniker": "ItemType.cs",
@@ -72,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Monster.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\Monster.cs",
               "RelativeDocumentMoniker": "Monster.cs",
@@ -91,14 +91,14 @@
               "RelativeDocumentMoniker": "Character.cs",
               "ToolTip": "D:\\unitywork\\TextRpg\\Character.cs",
               "RelativeToolTip": "Character.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAYwB8AAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAADwvxoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-15T01:04:39.998Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Utils.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\Utils.cs",
               "RelativeDocumentMoniker": "Utils.cs",
@@ -124,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Item.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\Item.cs",
               "RelativeDocumentMoniker": "Item.cs",
@@ -143,7 +143,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\unitywork\\TextRpg\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAA8CAAAAAAAAAADwvysCAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAKwCAAAAAAAAAAD4v8ACAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-15T00:44:08.385Z",
               "EditorCaption": ""
