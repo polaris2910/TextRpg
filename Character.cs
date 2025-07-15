@@ -168,6 +168,7 @@ namespace TextRpg_Comment
         {
             Hp = Utils.Clamp(Hp / 2, 1, MaxHp);
         }
+
         public void TakeDamage(int damage)
         {
             Hp = Utils.Clamp(Hp - damage, 0, MaxHp);
