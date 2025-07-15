@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "D:\\unitywork\\TextRpg\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:dungeon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|solutionrelative:item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{394EEA96-EDFE-4E01-8232-4C48193F86C7}|TextRpg.csproj|d:\\unitywork\\textrpg\\itemtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
@@ -54,8 +54,7 @@
               "RelativeToolTip": "EnemyAttackPhase.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAkwCsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T05:48:16.03Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T05:48:16.03Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "ItemType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T01:04:38.221Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T01:04:38.221Z"
             },
             {
               "$type": "Document",
@@ -80,18 +78,17 @@
               "RelativeToolTip": "Monster.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T00:58:46.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T00:58:46.507Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Character.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\Character.cs",
               "RelativeDocumentMoniker": "Character.cs",
               "ToolTip": "D:\\unitywork\\TextRpg\\Character.cs",
               "RelativeToolTip": "Character.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAADwvxoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAAAE0AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-15T01:04:39.998Z",
               "EditorCaption": ""
@@ -106,12 +103,11 @@
               "RelativeToolTip": "Utils.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T01:28:14.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T01:28:14.365Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Dungeon.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\Dungeon.cs",
               "RelativeDocumentMoniker": "Dungeon.cs",
@@ -119,12 +115,11 @@
               "RelativeToolTip": "Dungeon.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T01:04:42.602Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T01:04:42.602Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Item.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\Item.cs",
               "RelativeDocumentMoniker": "Item.cs",
@@ -132,18 +127,17 @@
               "RelativeToolTip": "Item.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T01:04:38.915Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T01:04:38.915Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\unitywork\\TextRpg\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\unitywork\\TextRpg\\Program.cs*",
-              "RelativeToolTip": "Program.cs*",
-              "ViewState": "AgIAAA0AAAAAAAAAAADgvxoAAAANAAAAAAAAAA==",
+              "ToolTip": "D:\\unitywork\\TextRpg\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAI4CAAAAAAAAAADgv84CAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-15T00:44:08.385Z",
               "EditorCaption": ""

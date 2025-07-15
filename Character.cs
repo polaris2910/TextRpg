@@ -68,8 +68,8 @@ namespace TextRpg_Comment
                     Gold = 10000;
                     break;
                 case "백수":
-                    Atk = 10;
-                    Def = 10;
+                    Atk = 9;
+                    Def = 9;
                     MaxHp = 150;
                     Gold = 3000;
                     break;
