@@ -27,6 +27,8 @@ namespace TextRpg_Comment
 
         public int InventoryCount => Inventory.Count;
 
+        public string Jobname { get; }
+
         private int dungeonClearCount = 0;
 
         public Character(int level, string name, string job, int atk, int def, int hp, int gold)
@@ -40,6 +42,13 @@ namespace TextRpg_Comment
             MaxHp = hp;
             Gold = gold;
         }
+
+        public Character(string? name, string jobname)
+        {
+            Name = name;
+            Jobname = jobname;
+        }
+
         public List<Item> TakeInventory()
 {
     return Inventory;
