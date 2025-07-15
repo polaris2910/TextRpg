@@ -11,7 +11,7 @@ namespace TextRpgPlayerAtk
     internal class PlayerAtk
     {
         
-            public void Attack(Character player, Monster monster)
+            public void Attack(Character player, Monster monster , List<Monster> battleMonsters)
             {
                 int attackPower = player.Atk + player.ExtraAtk;
                 int damage = attackPower;
@@ -21,7 +21,14 @@ namespace TextRpgPlayerAtk
 
                 Console.WriteLine($"{player.Name}이(가) {monster.Name}을(를) 공격했습니다! (피해량: {damage})");
                 Console.WriteLine($"{monster.Name}의 남은 체력: {monster.Hp}");
+            if (monster.Hp == 0)
+            {
+                Console.WriteLine($"{monster.Name} 처치!");
+                
+
             }
+            EnemyAttackPhase.EnemyAtkPhase(player, battleMonsters);
+        }
         
     }
 }
