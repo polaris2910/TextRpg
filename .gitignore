@@ -412,3 +412,5 @@ obj/project.assets.json
 obj/project.nuget.cache
 obj/TextRpg.csproj.nuget.dgspec.json
 obj/TextRpg.csproj.nuget.g.props
+obj/Debug/net8.0/TextRpg.AssemblyInfo.cs
+obj/Debug/net8.0/TextRpg.AssemblyInfoInputs.cache
