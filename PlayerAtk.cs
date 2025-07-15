@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRpgBattleAnd
+namespace TextRpgPlayerAtk
 {
-    internal class BattleAnd
+    internal class PlayerAtk
     {
     }
 }
