@@ -19,7 +19,7 @@ namespace TextRpgPlayerAtk
 
                 monster.Hp = Math.Max(monster.Hp - damage, 0);
 
-            Console.WriteLine($"{player.Name}이(가) {monster.Name}을(를) 공격했습니다! (피해량: {damage})");
+                Console.WriteLine($"{player.Name}이(가) {monster.Name}을(를) 공격했습니다! (피해량: {damage})");
                 Console.WriteLine($"{monster.Name}의 남은 체력: {monster.Hp}");
             }
         
