@@ -1,12 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextRpg
+﻿namespace TextRpg_Comment
 {
-    internal class Monster
+    public class Monster
     {
+        public string Name { get; }
+        public int Level { get; }
+        public int Hp { get; set; }
+        public int Atk { get; }
+
+        public Monster(string name, int level, int hp, int atk)
+        {
+            Name = name;
+            Level = level;
+            Hp = hp;
+            Atk = atk;
+        }
+
+        public string Info()
+        {
+            return $"Lv.{Level} {Name}  HP {Hp}";
+        }
     }
 }
