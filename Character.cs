@@ -216,6 +216,15 @@ namespace TextRpg_Comment
 
             // 기존 같은 타입 장비 해제
             Item already = EquipList.FirstOrDefault(i => i.Type == item.Type);
+            if (IsEquipped(item))
+            {
+                EquipList.Remove(item);
+                if (item.Type == ItemType.Weapon)
+                    ExtraAtk -= item.Value;
+                else
+                    ExtraDef -= item.Value;
+                return;
+            }
             if (already != null)
             {
                 EquipList.Remove(already);
@@ -226,14 +235,7 @@ namespace TextRpg_Comment
             }
 
             // 장착 해제
-            if (IsEquipped(item))
-            {
-                EquipList.Remove(item);
-                if (item.Type == ItemType.Weapon)
-                    ExtraAtk -= item.Value;
-                else
-                    ExtraDef -= item.Value;
-            }
+            
             else // 장착
             {
                 EquipList.Add(item);
