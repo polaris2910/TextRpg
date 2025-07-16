@@ -101,10 +101,10 @@ namespace TextRpg_Comment
             {
                 new Item("수련자의 갑옷", ItemType.Armor, 5, "수련에 도움을 주는 갑옷입니다.", 1000),
                 new Item("무쇠갑옷", ItemType.Armor, 9, "무쇠로 만들어진 튼튼한 갑옷입니다.", 2000),
-                new Item("스파르타의 갑옷", ItemType.Armor, 15, "전설의 갑옷입니다.", 3500),
+                new Item("스파르타의 갑옷", ItemType.Armor, 100, "전설의 갑옷입니다.", 3500),
                 new Item("낡은 검", ItemType.Weapon, 2, "낡은 검입니다.", 600),
                 new Item("청동 도끼", ItemType.Weapon, 5, "사용감 있는 도끼입니다.", 1500),
-                new Item("스파르타의 창", ItemType.Weapon, 70, "전설의 창입니다.", 2500),
+                new Item("스파르타의 창", ItemType.Weapon, 100, "전설의 창입니다.", 2500),
                 new Item("작은 포션", ItemType.potion, 30, "작은 회복 포션입니다.", 600),
                 new Item("중간 포션", ItemType.potion, 70, "중간 크기 포션입니다.", 1200),
                 new Item("큰 포션", ItemType.potion, 100, "대용량 회복 포션입니다.", 2000)
@@ -123,7 +123,9 @@ namespace TextRpg_Comment
             {
                 new Monster("미니언", 2, 15, 5),
                 new Monster("공허충", 3, 10, 9),
-                new Monster("대포미니언", 5, 25, 8)
+                new Monster("대포미니언", 5, 25, 8),
+                new Monster("전령", 10, 100, 10),
+                new Monster("파이어 드래곤", 15, 150, 15)
             };
         }
 
@@ -370,7 +372,7 @@ namespace TextRpg_Comment
             EnterDungeonUI();
         }
 
-        // 실제 던전 연속 진행 루프
+        // 던전 연속 진행
         static void EnterDungeonUI()
         {
             while (true)
@@ -392,7 +394,7 @@ namespace TextRpg_Comment
                 if (input == 2) return; // 마을 복귀
 
                 int beforeHp = player.Hp;
-                int beforeGold = player.Gold;
+                int beforeGold = player.Gold; // 전투 시작 전 골드
 
                 // 전투 결과(승패) - true면 승리, false면 패배
                 bool win = StartBattle(monsters);
@@ -400,9 +402,15 @@ namespace TextRpg_Comment
                 if (win)
                 {
                     int afterHp = player.Hp;
-                    int afterGold = player.Gold;
-                    // 결과 출력 및 계속 탐험 여부 확인
-                    bool continueNext = DisplayDungeonResult($"[{currentFloor}층] 던전", beforeHp, afterHp, beforeGold, afterGold);
+
+                    // 1. 던전 클리어시 골드 드랍 (층당 500골드씩 추가)
+                    int goldRewardForFloor = currentFloor * 500;
+                    player.AddGold(goldRewardForFloor); // 플레이어에게 골드 추가
+
+                    int currentGoldAfterReward = player.Gold; // 골드 추가 후 최종 골드
+
+                    // 결과 출력 및 계속 탐험 여부 확인 (true: 승리)
+                    bool continueNext = DisplayDungeonResult($"[{currentFloor}층] 던전", beforeHp, afterHp, beforeGold, currentGoldAfterReward, true);
                     if (continueNext)
                         currentFloor++; // 다음 층
                     else
@@ -413,20 +421,22 @@ namespace TextRpg_Comment
                     player.HalveHp();
                     Console.WriteLine("전투 실패! 체력이 절반으로 줄어듭니다...");
                     Console.ReadLine();
+                    // 패배 시에도 결과 출력 (골드/포션 드랍 없음) (false: 패배)
+                    DisplayDungeonResult($"[{currentFloor}층] 던전", beforeHp, player.Hp, beforeGold, player.Gold, false);
                     break; // 마을 복귀
                 }
             }
         }
 
-        // 한 층의 전투 메인 루프 (승리: true, 패배: false)
+        // 전투 루프
         static bool StartBattle(List<Monster> monsters)
         {
             while (true)
             {
                 Console.Clear();
                 var living = monsters.Where(m => m.Hp > 0).ToList();
-                if (!living.Any()) return true; // 몬스터 전멸 -> 승리
-                if (player.Hp <= 0) return false; // 플레이어 사망 -> 패배
+                if (!living.Any()) return true; // 몬스터 전멸
+                if (player.Hp <= 0) return false; // 플레이어 사망
 
                 Console.WriteLine("[몬스터]");
                 foreach (var m in living)
@@ -486,23 +496,63 @@ namespace TextRpg_Comment
         }
 
         // 던전 결과 및 경험치/보상 출력, 층 이동 여부 반환
-        static bool DisplayDungeonResult(string dungeonName, int beforeHp, int afterHp, int beforeGold, int afterGold)
+        // isWin 매개변수 추가하여 승리/패배 구분
+        static bool DisplayDungeonResult(string dungeonName, int beforeHp, int afterHp, int beforeGold, int afterGold, bool isWin)
         {
             Console.Clear();
-            Console.WriteLine($"{dungeonName} 클리어!");
+            Console.WriteLine($"{dungeonName} {(isWin ? "클리어!" : "실패!")}");
+
+            // 체력 변화 표시
             Console.WriteLine($"체력: {beforeHp} → {afterHp}");
+
+            // 골드 변화 표시 (afterGold는 이미 보상이 포함된 값으로 전달됨)
             Console.WriteLine($"골드: {beforeGold} → {afterGold}");
 
-            // 현재 층수에 비례한 경험치 보상
-            int expReward = 100 + (currentFloor - 1) * 20;
-            player.GainExp(expReward);
-            Console.WriteLine($"경험치 +{expReward}");
-
-            // 5의 배수 층에선 체크포인트 갱신
-            if ((currentFloor % 5) == 0)
+            if (isWin)
             {
-                checkpointFloor = currentFloor;
-                Console.WriteLine($"체크포인트에 도달했습니다! (층: {checkpointFloor})");
+                // 획득 골드 표시 (afterGold는 이미 던전 클리어 골드가 반영된 값으로 출력)
+                int goldGained = afterGold - beforeGold;
+                Console.WriteLine($"획득 골드: +{goldGained} G");
+
+                // 각 층 클리어 시 포션 1~3개가 랜덤으로 드랍 (랜덤 드랍, 중복 가능)
+                Random rand = new Random();
+                int potionDropCount = rand.Next(1, 4);
+                if (potionDropCount > 0)
+                {
+                    Console.WriteLine("획득한 아이템:");
+                    for (int i = 0; i < potionDropCount; i++)
+                    {
+                        // itemDb에서 포션만 필터링
+                        var potionsInDb = itemDb.Where(item => item.Type == ItemType.potion).ToList();
+                        if (potionsInDb.Any())
+                        {
+                            Item droppedPotion = potionsInDb[rand.Next(potionsInDb.Count)];
+                            player.AddItemToInventory(droppedPotion); // 골드 소모 없이 인벤토리에 추가
+                            Console.WriteLine($"- {droppedPotion.Name}");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("획득한 아이템: 없음");
+                }
+
+
+                // 현재 층수에 비례한 경험치 보상
+                int expReward = 100 + (currentFloor - 1) * 20;
+                player.GainExp(expReward);
+                Console.WriteLine($"경험치 +{expReward}");
+
+                // 5의 배수 층에선 체크포인트 갱신
+                if ((currentFloor % 5) == 0)
+                {
+                    checkpointFloor = currentFloor;
+                    Console.WriteLine($"체크포인트에 도달했습니다! (층: {checkpointFloor})");
+                }
+            }
+            else // 패배 시
+            {
+                Console.WriteLine("골드나 아이템은 드랍되지 않습니다.");
             }
 
             Console.WriteLine("\n1. 다음 층");
@@ -511,15 +561,38 @@ namespace TextRpg_Comment
             return sel == 1;
         }
 
-        // 현재 층 몬스터 무작위 생성 (스케일 반영)
+        // 현재 층 몬스터 무작위 생성
         static List<Monster> CreateFloorMonsters(int floor)
         {
             Random rand = new Random();
             List<Monster> list = new List<Monster>();
-            int count = rand.Next(2, 5);
+            int count = rand.Next(2, 5); // 2~4 몬스터 생성
+
+            // 현재 층에 따라 스폰 가능한 몬스터 목록 필터링
+            List<Monster> availableMonsters = new List<Monster>();
+            foreach (var monster in monsterTypes)
+            {
+                if (monster.Name == "전령" && floor < 6)
+                {
+                    continue;
+                }
+                if (monster.Name == "파이어 드래곤" && floor < 11)
+                {
+                    continue;
+                }
+                availableMonsters.Add(monster);
+            }
+
+            // 스폰 가능한 몬스터가 없으면 (예: 초반 층에 모든 몬스터가 고층 전용일 경우) 기본 몬스터라도 스폰
+            if (!availableMonsters.Any())
+            {
+                availableMonsters.AddRange(monsterTypes.Where(m => m.Name == "미니언" || m.Name == "공허충" || m.Name == "대포미니언"));
+            }
+
+
             for (int i = 0; i < count; i++)
             {
-                Monster baseM = monsterTypes[rand.Next(monsterTypes.Count)];
+                Monster baseM = availableMonsters[rand.Next(availableMonsters.Count)]; // 필터링된 목록에서 선택
                 int scaledHp = baseM.Hp + (floor - 1) * 3;
                 int scaledAtk = baseM.Atk + (floor - 1) / 2;
                 list.Add(new Monster(baseM.Name, baseM.Level, scaledHp, scaledAtk));

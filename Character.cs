@@ -78,13 +78,13 @@ namespace TextRpg_Comment
                     Atk = 9;
                     Def = 9;
                     MaxHp = 150;
-                    Gold = 3000;
+                    Gold = 10000;
                     break;
                 default:
                     Atk = 10;
                     Def = 5;
                     MaxHp = 100;
-                    Gold = 1000;
+                    Gold = 10000;
                     break;
             }
 
@@ -163,10 +163,15 @@ namespace TextRpg_Comment
             return false;
         }
 
-        // 아이템 구매 및 인벤토리 관리
+        // 아이템 구매 (골드 소모 있음)
         public void BuyItem(Item item)
         {
-            SpendGold(item.Price);
+            Inventory.Add(item);
+        }
+
+        // 아이템 획득 (골드 소모 없음 - 드랍 아이템용)
+        public void AddItemToInventory(Item item) // 새로 추가된 메서드
+        {
             Inventory.Add(item);
         }
 
@@ -216,15 +221,6 @@ namespace TextRpg_Comment
 
             // 기존 같은 타입 장비 해제
             Item already = EquipList.FirstOrDefault(i => i.Type == item.Type);
-            if (IsEquipped(item))
-            {
-                EquipList.Remove(item);
-                if (item.Type == ItemType.Weapon)
-                    ExtraAtk -= item.Value;
-                else
-                    ExtraDef -= item.Value;
-                return;
-            }
             if (already != null)
             {
                 EquipList.Remove(already);
@@ -235,7 +231,14 @@ namespace TextRpg_Comment
             }
 
             // 장착 해제
-            
+            if (IsEquipped(item))
+            {
+                EquipList.Remove(item);
+                if (item.Type == ItemType.Weapon)
+                    ExtraAtk -= item.Value;
+                else
+                    ExtraDef -= item.Value;
+            }
             else // 장착
             {
                 EquipList.Add(item);
