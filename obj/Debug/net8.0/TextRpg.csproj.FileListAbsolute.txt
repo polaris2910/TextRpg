@@ -42,3 +42,18 @@ D:\unitywork\TextRpg\obj\Debug\net8.0\refint\TextRpg.dll
 D:\unitywork\TextRpg\obj\Debug\net8.0\TextRpg.pdb
 D:\unitywork\TextRpg\obj\Debug\net8.0\TextRpg.genruntimeconfig.cache
 D:\unitywork\TextRpg\obj\Debug\net8.0\ref\TextRpg.dll
+E:\C#\Team 25\TextRpg\bin\Debug\net8.0\TextRpg.exe
+E:\C#\Team 25\TextRpg\bin\Debug\net8.0\TextRpg.deps.json
+E:\C#\Team 25\TextRpg\bin\Debug\net8.0\TextRpg.runtimeconfig.json
+E:\C#\Team 25\TextRpg\bin\Debug\net8.0\TextRpg.dll
+E:\C#\Team 25\TextRpg\bin\Debug\net8.0\TextRpg.pdb
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.GeneratedMSBuildEditorConfig.editorconfig
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.AssemblyInfoInputs.cache
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.AssemblyInfo.cs
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.csproj.CoreCompileInputs.cache
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.sourcelink.json
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.dll
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\refint\TextRpg.dll
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.pdb
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\TextRpg.genruntimeconfig.cache
+E:\C#\Team 25\TextRpg\obj\Debug\net8.0\ref\TextRpg.dll
