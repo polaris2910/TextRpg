@@ -24,6 +24,11 @@ namespace TextRpg
                 int finalDamage = (int)Math.Round(actualDamage);         // 반올림
 
                 if (finalDamage < 0) finalDamage = 0; // 음수 방지
+                if (Dodge.DodgeAtk())
+                {
+                    Dodge.ShowDodge();
+                    finalDamage = 0;
+                }
 
                 int originalPlayerHp = player.Hp;
                 player.TakeDamage(finalDamage);       // 플레이어에 피해 적용
@@ -45,5 +50,7 @@ namespace TextRpg
                 Console.ReadLine(); // 한 몬스터 공격 시마다 대기
             }
         }
+        
     }
 }
+

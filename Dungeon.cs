@@ -15,4 +15,17 @@
             BaseReward = baseReward;
         }
     }
+    public static class Dodge
+    {
+        private static Random random = new Random();
+        public static bool DodgeAtk()
+        {
+            return random.Next(0, 10) < 1;// 1이 나오면
+
+        }
+        public static void ShowDodge()
+        {
+            Console.WriteLine("감나빛!");
+        }
+    }
 }

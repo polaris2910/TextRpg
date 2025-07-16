@@ -11,6 +11,12 @@ namespace TextRpgPlayerAtk
         {
             Console.Clear();
             int attackPower = player.Atk + player.ExtraAtk;       // 최종 공격력 계산
+            if(Dodge.DodgeAtk())
+            {
+                Dodge.ShowDodge();
+                attackPower = 0;
+            }
+
             int damage = Math.Max(attackPower, 0);                // 음수 방지
 
             target.Hp = Math.Max(target.Hp - damage, 0);          // 몬스터 체력 감소 (0 하한)
