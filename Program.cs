@@ -587,7 +587,7 @@ namespace TextRpg_Comment
                 {
                     if (random.Next(0, 100) != 0)
                     continue;
-
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("황★금★고★블★린");
                 }
                 availableMonsters.Add(monster);
