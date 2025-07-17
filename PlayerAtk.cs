@@ -35,7 +35,14 @@ namespace TextRpgPlayerAtk
 
             if (target.Hp <= 0)
             {
-                Console.WriteLine($"{target.Name} 처치!");
+                if (target.RewardGold <= 0)
+                {
+                    Console.WriteLine($"{target.Name} 처치!");
+                }
+                else
+                {
+                    Console.WriteLine($"{target.Name} 처치!{target.RewardGold} 획득!");
+                }
             }
             Console.WriteLine("\nEnter를 눌러 다음 턴으로...");
             Console.ReadLine();

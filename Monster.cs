@@ -8,13 +8,16 @@
         public int Hp { get; set; }    // 현재 체력
         public int Atk { get; }        // 공격력
 
+        public int RewardGold {  get; set; }
+
         // 생성자
-        public Monster(string name, int level, int hp, int atk)
+        public Monster(string name, int level, int hp, int atk, int rewardGold)
         {
             Name = name;
             Level = level;
             Hp = hp;
             Atk = atk;
+            RewardGold = rewardGold;
         }
 
         // 정보 출력용 텍스트
@@ -31,5 +34,6 @@
                 Hp = 0; // HP가 0 미만으로 내려가지 않도록 0으로 설정합니다.
             }
         }
+
     }
 }

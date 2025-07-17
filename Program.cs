@@ -16,6 +16,7 @@ namespace TextRpg_Comment
         private static Item[] itemDb;
         private static Dungeon[] dungeonDb;
         private static List<Monster> monsterTypes;
+        private static Random random = new Random();
 
         // 현재 진행중인 층수 / 체크포인트
         static int currentFloor = 1;
@@ -121,11 +122,12 @@ namespace TextRpg_Comment
             // 몬스터 목록
             monsterTypes = new List<Monster>
             {
-                new Monster("미니언", 2, 15, 5),
-                new Monster("공허충", 3, 10, 9),
-                new Monster("대포미니언", 5, 25, 8),
-                new Monster("전령", 10, 100, 10),
-                new Monster("파이어 드래곤", 15, 150, 15)
+                new Monster("미니언", 2, 15, 5 ,0),
+                new Monster("공허충", 3, 10, 9 , 0),
+                new Monster("대포미니언", 5, 25, 8, 0),
+                new Monster("전령", 10, 100, 10, 0),
+                new Monster("파이어 드래곤", 15, 150, 15, 0),
+                new Monster("황금 고블린" , 7, 40,6,100000 )
             };
         }
 
@@ -570,6 +572,7 @@ namespace TextRpg_Comment
 
             // 현재 층에 따라 스폰 가능한 몬스터 목록 필터링
             List<Monster> availableMonsters = new List<Monster>();
+
             foreach (var monster in monsterTypes)
             {
                 if (monster.Name == "전령" && floor < 6)
@@ -577,6 +580,10 @@ namespace TextRpg_Comment
                     continue;
                 }
                 if (monster.Name == "파이어 드래곤" && floor < 11)
+                {
+                    continue;
+                }
+                if (monster.Name == "황금 고블린" && random.Next(0, 100) !=0)
                 {
                     continue;
                 }
@@ -595,7 +602,7 @@ namespace TextRpg_Comment
                 Monster baseM = availableMonsters[rand.Next(availableMonsters.Count)]; // 필터링된 목록에서 선택
                 int scaledHp = baseM.Hp + (floor - 1) * 3;
                 int scaledAtk = baseM.Atk + (floor - 1) / 2;
-                list.Add(new Monster(baseM.Name, baseM.Level, scaledHp, scaledAtk));
+                list.Add(new Monster(baseM.Name, baseM.Level, scaledHp, scaledAtk,baseM.RewardGold));
             }
             return list;
         }
