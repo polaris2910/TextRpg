@@ -583,9 +583,12 @@ namespace TextRpg_Comment
                 {
                     continue;
                 }
-                if (monster.Name == "황금 고블린" && random.Next(0, 100) !=0)
+                if (monster.Name == "황금 고블린" )
                 {
+                    if (random.Next(0, 100) != 0)
                     continue;
+
+                    Console.WriteLine("황★금★고★블★린");
                 }
                 availableMonsters.Add(monster);
             }

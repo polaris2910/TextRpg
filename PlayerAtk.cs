@@ -41,7 +41,7 @@ namespace TextRpgPlayerAtk
                 }
                 else
                 {
-                    Console.WriteLine($"{target.Name} 처치!{target.RewardGold} 획득!");
+                    Console.WriteLine($"{target.Name} 처치!{target.RewardGold}G 획득!");
                 }
             }
             Console.WriteLine("\nEnter를 눌러 다음 턴으로...");
