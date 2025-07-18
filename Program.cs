@@ -321,17 +321,29 @@ namespace TextRpg_Comment
             }
         }
 
+        // -----------------------------
         // 던전 입장 방법 선택 UI
+        // 담당자: 김인빈
+        // → 던전 관련 기초 입장 방식 구현 담당
+        // -----------------------------
+
         static void DungeonMenuUI()
         {
             Console.Clear();
             Console.WriteLine("던전 입장 방식을 선택하세요:");
             Console.WriteLine("1. 1층부터");
+
+            // 체크포인트가 5층 이상일 경우 추가 선택지 제공
             if (checkpointFloor >= 5)
                 Console.WriteLine($"2. 체크포인트({checkpointFloor}층)부터 시작");
+
             int maxOption = checkpointFloor >= 5 ? 2 : 1;
             int input = CheckInput(1, maxOption);
+
+            // 선택에 따라 현재 층 초기화
             currentFloor = (input == 1) ? 1 : checkpointFloor;
+
+            // 던전 입장 실행
             EnterDungeonUI();
         }
 
@@ -384,36 +396,64 @@ namespace TextRpg_Comment
             }
         }
 
-        // 전투 루프(턴제)
+        // --------------------------------------------------
+        // 전투 루프(턴제 진행)
+        // 담당자: 김인빈
+        // → 플레이어와 몬스터가 번갈아 가며 전투를 진행하는 핵심 메소드
+        // --------------------------------------------------
         static bool StartBattle(List<Monster> monsters)
         {
             while (true)
             {
                 Console.Clear();
+
+                // 살아있는 몬스터만 추려서 리스트 재구성
                 var living = monsters.Where(m => m.Hp > 0).ToList();
+
+                // 승리 조건: 몬스터 전멸
                 if (!living.Any()) return true;
+
+                // 패배 조건: 플레이어 사망
                 if (player.Hp <= 0) return false;
+
+                // 몬스터 정보 출력
                 Console.WriteLine("[몬스터]");
                 foreach (var m in living)
                     Console.WriteLine(m.Info());
+
+                // 플레이어 정보 출력
                 Console.WriteLine("\n[플레이어]");
                 player.DisplayCharacterInfo();
+
+                // 플레이어 행동 선택
                 Console.WriteLine("\n1. 공격");
                 Console.WriteLine("2. 포션 사용");
                 Console.Write(">> ");
                 string input = Console.ReadLine();
+
+                // 공격 선택 시
                 if (input == "1")
                 {
                     Console.Clear();
                     Console.WriteLine("공격할 몬스터를 선택하세요:");
+
+                    // 살아있는 몬스터 목록 출력 (선택지)
                     for (int i = 0; i < living.Count; i++)
                         Console.WriteLine($"{i + 1}. {living[i].Info()}");
+
                     int sel = CheckInput(1, living.Count);
                     Monster target = living[sel - 1];
+
+                    // 플레이어 공격 실행
                     new PlayerAtk().Attack(player, target);
+
+                    // 플레이어가 죽지 않았다면 몬스터 턴 진입
                     if (player.Hp > 0)
                         EnemyAttackPhase.EnemyAtkPhase(player, monsters);
                 }
+
+                // ↓ 포션 사용 등 나머지 선택 분기 이어짐
+
                 else if (input == "2")
                 {
                     var potions = player.TakeInventory().Where(i => i.Type == ItemType.potion).ToList();

@@ -62,7 +62,11 @@ namespace TextRpg_Comment
             Hp = MaxHp;
         }
 
-        // 캐릭터 상태 출력
+        // ------------------------------------------
+        // [캐릭터 상태 출력]
+        // 담당자: 김인빈
+        // → 현재 이름, 직업, 레벨, 경험치/레벨업 필요 경험치, 능력치 등을 보여줌
+        // ------------------------------------------
         public void DisplayCharacterInfo()
         {
             Console.WriteLine($"[이름] {Name}   [직업] {Job}");
@@ -73,7 +77,11 @@ namespace TextRpg_Comment
             Console.WriteLine($"[보유 골드] {Gold} G");
         }
 
-        // 경험치 획득 및 레벨업
+        // ------------------------------------------
+        // [경험치 획득 및 레벨업 처리]
+        // 담당자: 김인빈
+        // → 경험치 누적, 레벨업 판정 후 능력치 증강과 알림 기능 담당
+        // ------------------------------------------
         public void GainExp(int amount)
         {
             Exp += amount;
@@ -84,11 +92,16 @@ namespace TextRpg_Comment
             }
         }
 
-        // 레벨업: 스탯 및 요구 경험치 상승
+        // ------------------------------------------
+        // [레벨업 세부 처리]
+        // 담당자: 김인빈
+        // → 실질적으로 캐릭터 레벨/능력치 증가 및 레벨업 메시지 출력
+        // ------------------------------------------
         private void LevelUp()
         {
             Level++;
-            Atk += 1; Def += 1;
+            Atk += 1;
+            Def += 1;
             ExpToNextLevel = 100 + (Level - 1) * 30;
             Console.WriteLine($"\n레벨업! Lv.{Level}이 되었습니다!");
             Console.WriteLine("  → 공격력 +1");
