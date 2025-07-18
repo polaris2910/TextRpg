@@ -24,17 +24,17 @@ namespace TextRpg_Comment
         // 프로그램 실행 시 가장 먼저 호출되어, 전체 게임 진행의 시작점이 됨
         static void Main(string[] args)
         {
-            ShowIntro();                // [실행] 인트로(시작 화면)를 먼저 보여주고, 엔터 입력 대기
-            string name = InputName();  // [실행] 이름 입력(유효성 체크, 빈값 시 반복 입력)
-            string job = SelectJob();   // [실행] 직업 메뉴 출력, 선택 반복
-            SetData(name, job);         // [실행] 캐릭터 생성 및 게임 데이터(아이템, 몬스터 등) 초기화
+            ShowIntro();                // 인트로(시작 화면)를 먼저 보여주고, 엔터 입력 대기
+            string name = InputName();  // 이름 입력(유효성 체크, 빈값 시 반복 입력)
+            string job = SelectJob();   // 직업 메뉴 출력, 선택 반복
+            SetData(name, job);         // 캐릭터 생성 및 게임 데이터(아이템, 몬스터 등) 초기화
 
             Console.Clear();
             Console.WriteLine($"모험가 {name}({job})님의 여정이 지금 시작됩니다!");
             Console.WriteLine("엔터를 눌러 계속합니다...");
             Console.ReadLine();
 
-            DisplayMainUI();            // [루프 진입] 마을에서의 메인 UI를 반복 진입(게임의 핵심 루프)
+            DisplayMainUI();            // 마을에서의 메인 UI를 반복 진입(게임의 핵심 루프)
         }
 
         // [인트로 화면 출력]
@@ -48,7 +48,7 @@ namespace TextRpg_Comment
             Console.WriteLine("   전설의 용사가 되어 여정을 시작하세요.");
             Console.WriteLine("===========================================");
             Console.WriteLine("\n엔터를 눌러 계속...");
-            Console.ReadLine(); // [실행 흐름] 입력이 될 때까지 대기, 이후 다음 코드로 이동
+            Console.ReadLine(); // 입력이 될 때까지 대기, 이후 다음 코드로 이동
         }
 
         // [이름 입력 함수]
@@ -59,7 +59,7 @@ namespace TextRpg_Comment
             Console.Write("당신의 이름을 입력해주세요: ");
             string name = Console.ReadLine();
 
-            while (string.IsNullOrWhiteSpace(name)) // [반복] 빈 값이면 계속 재입력
+            while (string.IsNullOrWhiteSpace(name)) // 빈 값이면 계속 재입력
             {
                 Console.Write("이름은 필수입니다. 다시 입력해주세요: ");
                 name = Console.ReadLine();
@@ -79,7 +79,7 @@ namespace TextRpg_Comment
             Console.WriteLine("4. 도적");
             Console.WriteLine("5. 백수");
             Console.Write(">> ");
-            int choice = CheckInput(1, 5); // [실행 흐름] 1~5 사이의 값이 입력될 때까지 반복
+            int choice = CheckInput(1, 5); // 1~5 사이의 값이 입력될 때까지 반복
 
             switch (choice)
             {
@@ -137,11 +137,11 @@ namespace TextRpg_Comment
         static int CheckInput(int min, int max)
         {
             int result;
-            while (true) // [반복] 원하는 범위 값을 받을 때까지 무한 반복
+            while (true) // 원하는 범위 값을 받을 때까지 무한 반복
             {
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out result) && result >= min && result <= max)
-                    return result; // [정상] 원하는 값이면 그대로 함수 종료
+                    return result; // 원하는 값이면 그대로 함수 종료
 
                 Console.WriteLine("잘못된 입력입니다. 다시 시도하세요.");
             }
@@ -151,7 +151,7 @@ namespace TextRpg_Comment
         // 프로그램의 "핵심 루프". Main에서 처음 호출되며, 종료가 선택되기 전까지 반복 실행됨
         static void DisplayMainUI()
         {
-            while (true) // [무한루프] 유저가 종료 선택(Environment.Exit)할 때까지 반복
+            while (true) // 유저가 종료 선택(Environment.Exit)할 때까지 반복
             {
                 Console.Clear();
                 Console.WriteLine("==== 마을 ====");
@@ -174,7 +174,7 @@ namespace TextRpg_Comment
                     case 5: DisplayRestUI(); break;
                     case 0:
                         Console.WriteLine("게임을 종료합니다.");
-                        Environment.Exit(0); // [실행 흐름] 프로그램 완전 종료
+                        Environment.Exit(0); // 프로그램 완전 종료
                         break;
                 }
             }
@@ -186,7 +186,7 @@ namespace TextRpg_Comment
         {
             Console.Clear();
             Console.WriteLine("==== 캐릭터 상태 ====");
-            player.DisplayCharacterInfo(); // [출력] 플레이어의 모든 주요 정보를 보여줌
+            player.DisplayCharacterInfo(); // 플레이어의 모든 주요 정보를 보여줌
             Console.WriteLine("\n엔터를 누르세요...");
             Console.ReadLine(); // 엔터 입력 시 다시 MainUI로 복귀
         }
@@ -203,7 +203,7 @@ namespace TextRpg_Comment
             Console.Write(">> ");
             int input = CheckInput(0, 1);
             if (input == 1)
-                DisplayEquipUI(); // [실행 흐름] 1 선택 시 장착 관리 진입
+                DisplayEquipUI(); // 1 선택 시 장착 관리 진입
             // 나가기는 함수 끝나면서 MainUI로 복귀
         }
 
@@ -380,7 +380,7 @@ namespace TextRpg_Comment
         // 한 번 입장시 계속 층을 오르며, 매 층마다 전투, 결과, 반복/마을 복귀 여부를 처리함
         static void EnterDungeonUI()
         {
-            while (true) // [반복] 던전에서 계속 탐험 혹은 마을 복귀까지
+            while (true) // 던전에서 계속 탐험 혹은 마을 복귀까지
             {
                 Console.Clear();
                 Console.WriteLine($"== {currentFloor}층 도전 ==");
@@ -399,7 +399,7 @@ namespace TextRpg_Comment
                 int beforeHp = player.Hp;
                 int beforeGold = player.Gold;
 
-                bool win = StartBattle(monsters); // [실행 흐름] 실제 전투(최대 반복)
+                bool win = StartBattle(monsters); // 실제 전투(최대 반복)
 
                 if (win)
                 {
@@ -437,8 +437,8 @@ namespace TextRpg_Comment
             {
                 Console.Clear();
                 var living = monsters.Where(m => m.Hp > 0).ToList();
-                if (!living.Any()) return true; // [전투 종료] 몬스터 전멸=승리
-                if (player.Hp <= 0) return false; // [전투 종료] 플레이어 사망=패배
+                if (!living.Any()) return true; // 몬스터 전멸=승리
+                if (player.Hp <= 0) return false; // 플레이어 사망=패배
 
                 Console.WriteLine("[몬스터]");
                 foreach (var m in living)
@@ -546,16 +546,19 @@ namespace TextRpg_Comment
                     checkpointFloor = currentFloor;
                     Console.WriteLine($"체크포인트에 도달했습니다! (층: {checkpointFloor})");
                 }
+
+                Console.WriteLine("\n1. 다음 층");
+                Console.WriteLine("0. 마을로 귀환\n>> ");
+                int sel = CheckInput(0, 1);
+                return sel == 1; // true면 다음 층, false면 마을 복귀
             }
-            else
+            else // 전투 패배 시
             {
                 Console.WriteLine("골드나 아이템은 드랍되지 않습니다.");
+                Console.WriteLine("\n0. 마을로 귀환\n>> ");
+                int sel = CheckInput(0, 0);
+                return false; // 항상 마을로 복귀 (false)
             }
-
-            Console.WriteLine("\n1. 다음 층");
-            Console.WriteLine("0. 마을로 귀환\n>> ");
-            int sel = CheckInput(0, 1);
-            return sel == 1; // true면 다음 층, false면 마을 복귀
         }
 
         // [현재 층의 몬스터 무작위 생성]
