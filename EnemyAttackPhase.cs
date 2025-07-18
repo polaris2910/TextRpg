@@ -4,6 +4,7 @@ using TextRpg_Comment;
 
 namespace TextRpg
 {
+    // 회피 제외 나머지 유형준 담당
     // 몬스터 턴 전체 처리 담당 클래스
     internal class EnemyAttackPhase
     {
@@ -15,15 +16,22 @@ namespace TextRpg
             Console.WriteLine("몬스터의 턴입니다.\n");
 
             foreach (Monster monster in currentMonsters)
+            // 현재 소환된 모든 몬스터의 수만큼 반복함 = 모든 몬스터가 공격을 실행함
             {
-                if (monster.Hp <= 0) continue; // 죽은 몬스터는 스킵
-
-                // 플레이어 총 방어력(장비 포함)
+                if (monster.Hp <= 0) continue; // 단, 죽은 몬스터는 스킵 처리
+              
                 int totalDef = player.Def + player.ExtraDef;
-                double damageReductionPercent = Math.Min(totalDef, 80); // 최대 80%까지 감산
+                // 플레이어의 전체 방어력 계산
+
+                double damageReductionPercent = Math.Min(totalDef, 80);
                 double actualDamage = monster.Atk * (100 - damageReductionPercent) / 100.0;
+                // 몬스터의 공격력은 방어력에 비례해 최대 80%까지 감산
+
                 int finalDamage = (int)Math.Round(actualDamage);
+                // 감산한 공격력은 최종 데미지에 저장
+
                 if (finalDamage < 0) finalDamage = 0;
+                // 최종 데미지의 최소값은 0으로 설정 (음수로 내려가지 않음)
 
                 // 회피 판정 (성공시 데미지 0)
                 if (Dodge.DodgeAtk())

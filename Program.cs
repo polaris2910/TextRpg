@@ -335,45 +335,50 @@ namespace TextRpg_Comment
             EnterDungeonUI();
         }
 
-        // 던전 연속 도전 UI
+        // 던전 연속 진행 : 유형준 담당
         static void EnterDungeonUI()
         {
-            while (true)
+            while (true) // 던전 층 반복
             {
                 Console.Clear();
                 Console.WriteLine($"== {currentFloor}층 도전 ==");
                 List<Monster> monsters = CreateFloorMonsters(currentFloor);
                 Console.WriteLine("\n몬스터 등장!");
+
                 foreach (var m in monsters)
-                    Console.WriteLine(m.Info());
+                Console.WriteLine(m.Info()); // 생성된 몬스터들 정보 화면에 출력
                 Console.WriteLine("\n1. 전투 시작");
                 Console.WriteLine("2. 마을로 돌아가기");
                 Console.Write(">> ");
                 int input = CheckInput(1, 2);
-                if (input == 2) return;
-                int beforeHp = player.Hp;
-                int beforeGold = player.Gold;
-                bool win = StartBattle(monsters);
-                if (win)
+
+                if (input == 2) return; // 2 입력 시 마을 복귀
+
+                int beforeHp = player.Hp; // 전투 전 플레이어의 체력 저장
+                int beforeGold = player.Gold; // 전투 전 플레이어의 골드 저장
+                bool win = StartBattle(monsters); // 전투 시작 로직 호출
+
+                if (win) // 승리하였을 경우
                 {
-                    int afterHp = player.Hp;
-                    int goldRewardForFloor = currentFloor * 500;
-                    player.AddGold(goldRewardForFloor);
+                    int afterHp = player.Hp; // 전투 후 플레이어의 최종 체력 저장
+                    int goldRewardForFloor = currentFloor * 500; // 층에 비례해 골드 보상 계산 (현재 층 x 500)
+                    player.AddGold(goldRewardForFloor); // 계산된 골드 보상 플레이어의 골드에 추가
                     int currentGoldAfterReward = player.Gold;
-                    bool continueNext = DisplayDungeonResult(
-                        $"[{currentFloor}층] 던전", beforeHp, afterHp, beforeGold, currentGoldAfterReward, true);
-                    if (continueNext)
-                        currentFloor++;
-                    else
+                    bool continueNext = DisplayDungeonResult($"[{currentFloor}층] 던전", beforeHp, afterHp, beforeGold, currentGoldAfterReward, true);
+                    // DisplayDungeonResult 호출 + 승리 결과 출력
+
+                    if (continueNext) // DisplayDungeonResult에서 반환받은 값이 true일 경우
+                        currentFloor++; // 현재 층에 1 추가
+
+                    else // false일 경우 마을로 복귀
                         break;
                 }
-                else
+                else // 패배 시
                 {
-                    player.HalveHp();
-                    Console.WriteLine("전투 실패! 체력이 절반으로 줄어듭니다...");
+                    player.HalveHp(); // 플레이어의 체력을 1로 설정함
+                    Console.WriteLine("전투 실패! 체력이 [1]로 줄어듭니다...");
                     Console.ReadLine();
-                    DisplayDungeonResult(
-                        $"[{currentFloor}층] 던전", beforeHp, player.Hp, beforeGold, player.Gold, false);
+                    DisplayDungeonResult($"[{currentFloor}층] 던전", beforeHp, player.Hp, beforeGold, player.Gold, false); // 패배 결과 출력
                     break;
                 }
             }
@@ -437,7 +442,8 @@ namespace TextRpg_Comment
             }
         }
 
-        // 던전 결과/보상 화면
+        
+        // 포션, 골드 드랍 및 전투 결과 처리 : 유형준 담당
         static bool DisplayDungeonResult(
             string dungeonName, int beforeHp, int afterHp, int beforeGold, int afterGold, bool isWin)
         {
@@ -445,62 +451,69 @@ namespace TextRpg_Comment
             Console.WriteLine($"{dungeonName} {(isWin ? "클리어!" : "실패!")}");
             Console.WriteLine($"체력: {beforeHp} → {afterHp}");
             Console.WriteLine($"골드: {beforeGold} → {afterGold}");
-            if (isWin)
+
+            if (isWin) // 플레이어의 승리 여부 (true면 승리, false면 패배)
             {
-                int goldGained = afterGold - beforeGold;
+                int goldGained = afterGold - beforeGold; // 획득 골드 계산
                 Console.WriteLine($"획득 골드: +{goldGained} G");
-                Random rand = new Random();
-                int potionDropCount = rand.Next(1, 4);
+                Random rand = new Random(); // 포션 랜덤 드랍을 위한 랜덤 객체 생성
+                int potionDropCount = rand.Next(1, 4); // 랜덤값 범위 설정 (1~3개)
                 if (potionDropCount > 0)
                 {
                     Console.WriteLine("획득한 아이템:");
-                    for (int i = 0; i < potionDropCount; i++)
+                    for (int i = 0; i < potionDropCount; i++) // 랜덤 값만큼 반복 = 포션 드랍 (반복 시 무작위 포션 종류가 선택되어 드랍)
                     {
-                        var potionsInDb = itemDb.Where(item => item.Type == ItemType.potion).ToList();
+                        var potionsInDb = itemDb.Where(item => item.Type == ItemType.potion).ToList(); // itemDb에서 모든 포션 종류를 가져옴
+
                         if (potionsInDb.Any())
                         {
-                            Item droppedPotion = potionsInDb[rand.Next(potionsInDb.Count)];
-                            player.AddItemToInventory(droppedPotion);
+                            Item droppedPotion = potionsInDb[rand.Next(potionsInDb.Count)]; // 무작위로 하나의 포션 선택
+                            player.AddItemToInventory(droppedPotion); // 선택된 포션을 인벤토리에 추가
                             Console.WriteLine($"- {droppedPotion.Name}");
                         }
                     }
                 }
-                else
+                else // 랜덤 값이 0일 경우
                 {
                     Console.WriteLine("획득한 아이템: 없음");
                 }
+
+
                 int expReward = 100 + (currentFloor - 1) * 20;
                 player.GainExp(expReward);
                 Console.WriteLine($"경험치 +{expReward}");
-                if ((currentFloor % 5) == 0)
+                if ((currentFloor % 5) == 0) // 5층 단위로 체크포인트 저장
                 {
                     checkpointFloor = currentFloor;
                     Console.WriteLine($"체크포인트에 도달했습니다! (층: {checkpointFloor})");
                 }
+
                 Console.WriteLine("\n1. 다음 층");
                 Console.WriteLine("0. 마을로 귀환\n>> ");
-                int sel = CheckInput(0, 1);
-                return sel == 1;
+                int sel = CheckInput(0, 1); // 0 또는 1을 입력받음
+                return sel == 1; // sel이 1일 경우 1 == 1 은 true 이므로 EnterDungeonUI의 continueNext 변수에 true 반환. 0일 경우 false 반환
             }
-            else
+            else // 패배 시
             {
                 Console.WriteLine("골드나 아이템은 드랍되지 않습니다.");
                 Console.WriteLine("\n0. 마을로 귀환\n>> ");
-                int sel = CheckInput(0, 0);
-                return false;
+                int sel = CheckInput(0, 0); // 0만 입력 받도록 설정
+                return false; // false를 반환 = 마을로 귀환
             }
         }
 
-        // 층별 몬스터 무작위 생성
+        
+        // 몬스터 랜덤 생성 및 특정 층부터 특정 몬스터 출현 : 유형준 담당
         static List<Monster> CreateFloorMonsters(int floor)
         {
-            Random rand = new Random();
-            List<Monster> list = new List<Monster>();
-            int count = rand.Next(2, 5);
-            List<Monster> availableMonsters = new List<Monster>();
-            foreach (var monster in monsterTypes)
+            Random rand = new Random(); // 랜덤 값 생성 (몬스터의 수 및 종류에 사용)
+            List<Monster> list = new List<Monster>(); // 해당 층에서 스폰될 몬스터 객체들을 담을 빈 리스트 생성
+            int count = rand.Next(2, 5); // 랜덤 값 범위 설정
+            List<Monster> availableMonsters = new List<Monster>(); // 해당 층에서 등장 가능한 몬스터의 종류를 담을 리스트 생성
+
+            foreach (var monster in monsterTypes) // 특정 몬스터들의 소환 조건 확인
             {
-                if (monster.Name == "전령" && floor < 6)
+                if (monster.Name == "전령" && floor < 6) //
                     continue;
                 if (monster.Name == "파이어 드래곤" && floor < 11)
                     continue;
@@ -511,15 +524,17 @@ namespace TextRpg_Comment
                     Console.ForegroundColor = ConsoleColor.Yellow;//글씨 색 변경
                     Console.WriteLine("황★금★고★블★린");//continue가 작동하지 않아 황금고블린이 등장시 문구 출력
                 }
-                availableMonsters.Add(monster);
+                availableMonsters.Add(monster); // 소환 가능 몬스터 리스트에 추가
             }
-            if (!availableMonsters.Any())
+            if (!availableMonsters.Any()) // 소환 가능 몬스터가 없을 경우 미니언, 공허충, 대포미니언 소환
             {
                 availableMonsters.AddRange(monsterTypes.Where(m => m.Name == "미니언" || m.Name == "공허충" || m.Name == "대포미니언"));
             }
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++) // 랜덤 값만큼 랜덤 종류의 몬스터를 스폰시킴
             {
                 Monster baseM = availableMonsters[rand.Next(availableMonsters.Count)];
+
+                // 현재 층에 비례해 몬스터의 공격력과 체력을 업스케일링
                 int scaledHp = baseM.Hp + (floor - 1) * 3;
                 int scaledAtk = baseM.Atk + (floor - 1) / 2;
                 list.Add(new Monster(baseM.Name, baseM.Level, scaledHp, scaledAtk, baseM.RewardGold));
