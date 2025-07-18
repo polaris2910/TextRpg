@@ -470,7 +470,8 @@ namespace TextRpg_Comment
                 else if (input == "2")
                 {
                     var potions = player.TakeInventory().Where(i => i.Type == ItemType.potion).ToList();
-                    if (!potions.Any())
+                    //플레이어 인벤토리 리스트에서 타입이 포션인 구성요소가 리스트에 있는지 확인하는 코드
+                    if (!potions.Any())//포션 타입이 없을 경우
                     {
                         Console.WriteLine("사용 가능한 포션이 없습니다.");
                         Console.ReadLine();
@@ -481,10 +482,10 @@ namespace TextRpg_Comment
                     for (int i = 0; i < potions.Count; i++)
                         Console.WriteLine($"{i + 1}. {potions[i].ItemInfoText()}");
 
-                    int sel = CheckInput(1, potions.Count);
-                    var potion = potions[sel - 1];
-                    player.SetHp(player.Hp + potion.Value);
-                    player.RemoveItem(potion);
+                    int sel = CheckInput(1, potions.Count);//선택한 포션 번호 확인
+                    var potion = potions[sel - 1];//코드 번호를 맞추기 위해 -1
+                    player.SetHp(player.Hp + potion.Value);//플레이어 체력 증가
+                    player.RemoveItem(potion);//포션 제거
                     Console.WriteLine($"{potion.Name} 사용 - 체력 +{potion.Value}");
                     Console.ReadLine();
                 }
@@ -579,10 +580,10 @@ namespace TextRpg_Comment
                     continue;
                 if (monster.Name == "황금 고블린")
                 {
-                    if (random.Next(0, 100) != 0)
-                        continue;
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("황★금★고★블★린");
+                    if (random.Next(0, 100) != 0)//미리 입력한 렌덤 함수작동해 1/100 계산
+                        continue; // 100~0중 0이 아닐경우 다시-> 100분의 1확률로 고블린 등장
+                    Console.ForegroundColor = ConsoleColor.Yellow;//글씨 색 변경
+                    Console.WriteLine("황★금★고★블★린");//continue가 작동하지 않아 황금고블린이 등장시 문구 출력
                 }
                 availableMonsters.Add(monster);
             }
