@@ -506,10 +506,10 @@ namespace TextRpg_Comment
                     continue;
                 if (monster.Name == "황금 고블린")
                 {
-                    if (random.Next(0, 100) != 0)
-                        continue;
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("황★금★고★블★린");
+                    if (random.Next(0, 100) != 0)//미리 입력한 렌덤 함수작동해 1/100 계산
+                        continue;// 100~0중 0이 아닐경우 다시-> 100분의 1확률로 고블린 등장
+                    Console.ForegroundColor = ConsoleColor.Yellow;//글씨 색 변경
+                    Console.WriteLine("황★금★고★블★린");//continue가 작동하지 않아 황금고블린이 등장시 문구 출력
                 }
                 availableMonsters.Add(monster);
             }
